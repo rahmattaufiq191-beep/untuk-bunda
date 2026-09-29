@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Bunda Sayang! ❤️</title>
+    <style>
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #ffa3b1;
+            --text-color: #4a4a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .card-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.15);
+            padding: 40px 25px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.5s ease;
+        }
+
+        .icon-heart {
+            font-size: 50px;
+            color: var(--primary-color);
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Gaya Kotak Foto (Sembunyi di Awal) */
+        .photo-wrapper {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto;
+        }
+
+        .photo-wrapper.show {
+            max-height: 420px;
+            opacity: 1;
+            margin-bottom: 20px;
+        }
+
+        .photo-wrapper img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            border-radius: 15px;
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        .photo-wrapper img:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #c93b55;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .message {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #555555;
+        }
+
+        .signature {
+            font-style: italic;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 15px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #ff477e 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 139, 0.6);
+        }
+
+        .heart-drop {
+            position: fixed;
+            top: -20px;
+            z-index: 1;
+            font-size: 15px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Musik Latar Seadanya -->
+    <audio id="backsound" loop>
+        <source src="https://mixkit.co" type="audio/wav">
+        <source src="https://soundhelix.com" type="audio/mp3">
+    </audio>
+
+    <div class="card-container">
+        <div class="icon-heart">💝</div>
+        
+        <!-- Wadah Foto Berdua dengan Link Publik Imgur Resmi -->
+        <div class="photo-wrapper" id="photoArea">
+            <img src="https://imgur.com" alt="Viell dan Bunda">
+        </div>
+
+        <h1>Barakallah Fii Umrik,<br>Bunda Tersayang! 🎂</h1>
+        <p class="message">
+            Selamat ulang tahun, Bunda. Terima kasih atas segala doa, kasih sayang tulus, dan kesabaran Bunda yang luar biasa selama ini. <br><br>
+            Semoga Bunda selalu diberikan kesehatan, umur yang panjang penuh berkah, kebahagiaan lahir batin, dan selalu berada dalam lindungan Allah SWT. Amin ya rabbal alamin.
+            <span class="signature">Penuh cinta, <br>~ Viell ~</span>
+        </p>
+        <button class="btn" id="btnSurprise" onclick="showSurprise()">Klik Kejutan Bunda ✨</button>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-drop');
+            
+            const heartTypes = ['❤️', '💖', '💗', '🌸', '✨'];
+            heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const size = Math.random() * 15 + 15;
+            heart.style.fontSize = `${size}px`;
+            
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        function showSurprise() {
+            // 1. Putar Musik
+            const audio = document.getElementById('backsound');
+            audio.play().catch(error => console.log("Musik tertahan sistem browser:", error));
+
+            // 2. Munculkan Foto Berdua
+            const photoArea = document.getElementById('photoArea');
+            photoArea.classList.add('show');
+
+            // 3. Efek Hati Jatuh
+            for (let i = 0; i < 50; i++) {
+                setTimeout(createHeart, i * 60);
+            }
+
+            document.getElementById('btnSurprise').innerText = "Peluk Bunda! 🤗";
+        }
+
+        setInterval(createHeart, 800);
+    </script>
+</body>
+</html>
